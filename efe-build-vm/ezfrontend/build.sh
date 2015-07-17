@@ -21,19 +21,19 @@ REPO_ROOT=${PARENT_REPO%/*}
 REPO_DOMAIN=${REPO_ROOT#*@}
 REPO_DOMAIN=${REPO_DOMAIN%:*}
 
-EFE_BRANCH="master"
-EFEUI_BRANCH="master"
+EFE_BRANCH="2.1release"
+EFEUI_BRANCH="2.1release"
 
 EFE_REPO_NAME="ezbake-platform-services"
 EFEUI_REPO_NAME="ezbake-platform-ui"
 
 
 #set abort on error
-set -e
+set -e -x
 
 #prefetch repo domain ssh keys if it doesn't already exist
 if [[ ! -n $(ssh-keygen -H -F $REPO_DOMAIN 2>/dev/null) ]];then
-    ssh-keyscan -H $REPO_DOMAIN 2>/dev/null >> ~/.ssh/known_hosts
+    ssh-keyscan -H github.com 2>/dev/null >> ~/.ssh/known_hosts
 fi
 
 
@@ -48,16 +48,16 @@ if [ ! -d $EFE_REPO_NAME ];then
     git pull origin $EFE_BRANCH
     cd ../
 fi
-#clone EFEUI repo if needed
+# clone EFEUI repo if needed
 if [ ! -d $EFEUI_REPO_NAME ];then
     echo "cloning $EFEUI_REPO_NAME with a sparse checkout of ./efe, ./classificationbanner"
     git init $EFEUI_REPO_NAME
     cd $EFEUI_REPO_NAME
-    git remote add -f origin $REPO_ROOT/$EFEUI_REPO_NAME.git
+    git remote add -f origin git@git.lab76.org:ezbake-new/$EFEUI_REPO_NAME
     git config core.sparsecheckout true
     echo "efe/" >> .git/info/sparse-checkout
     echo "classificationbanner/" >> .git/info/sparse-checkout
-    git pull origin $EFEUI_BRANCH
+    git checkout $EFEUI_BRANCH
     cd ../
 fi
 
@@ -78,7 +78,7 @@ cd $EFEUI_REPO_NAME/efe
 mv *.rpm $CUR_DIR/.
 cd $CUR_DIR
 echo -e "\nDone building efe rpms. RPMs are located in $CUR_DIR"
-
+#
 
 #
 echo -e "DONE"
