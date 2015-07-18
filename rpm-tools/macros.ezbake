@@ -32,7 +32,7 @@
 #
 #       rpmbuild -ba -D 'ezbake_release_build 1' ...
 #
-%if %{?ezbake_release_build}%{!?ezbake_release_build:0} == 1
+%if %{?ezbake_release_build:1}%{!?ezbake_release_build:0} == 1
     %define ezbake_release_prefix %{nil}
 %else
     %define ezbake_release_prefix SNAPSHOT

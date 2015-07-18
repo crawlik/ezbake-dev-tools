@@ -13,6 +13,8 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
+set -e -x
+
 function build_rpm() {
     local spec_file=$1
     local ezbake_version=$2
