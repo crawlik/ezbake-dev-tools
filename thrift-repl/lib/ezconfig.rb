@@ -12,7 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-require 'FileUtils'
+require 'fileutils'
 
 ENV['EZCONFIGURATION_DIR'] = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 Java::java.lang.System.set_property 'EZCONFIGURATION_DIR', ENV['EZCONFIGURATION_DIR']

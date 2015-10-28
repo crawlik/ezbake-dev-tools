@@ -55,6 +55,11 @@
             <artifactId>test-utils</artifactId>
             <version>${ezbake.version}</version>
         </dependency>
+        <dependency>
+            <groupId>ezbake.data</groupId>
+            <artifactId>ezelastic-thrift</artifactId>
+            <version>${ezbake.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
