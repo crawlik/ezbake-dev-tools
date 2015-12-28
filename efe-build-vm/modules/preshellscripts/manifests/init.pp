@@ -17,10 +17,28 @@ class preshellscripts {
             "vim-enhanced", "openssl-devel", "boost-devel", "python-devel",
             "pcre-devel", "log4cxx-devel", "npm",
             "libtool", "byacc", "flex", /* for thrift build */
+            "nodejs-grunt", "nodejs-grunt-cli", /* for nodejs */
+            "postgresql93-devel", /* for postgres visibility extention */
           ]
-
+  yumrepo { 'ezbake-open':
+    name => 'ezbake-open',
+    baseurl  => 'https://s3.amazonaws.com/ezbake-repo.chimpy.us/dev',
+    gpgcheck => 0,
+  } ->
+  yumrepo { 'pgdg93':
+    name => 'pgdg93',
+    baseurl  => 'http://yum.postgresql.org/9.3/redhat/rhel-$releasever-$basearch',
+    gpgcheck => 0,
+  } ->
+  exec { 'yum-refresh-repos':
+    command => '/usr/bin/yum clean all',
+  } ->
   package { $pkgs:
     ensure => latest,
+    provider => yum,
+  } ->
+  package { 'libevent-devel':
+    ensure => '1.4.13-4.el6',
     provider => yum,
   }
 
@@ -28,12 +46,14 @@ class preshellscripts {
     ensure => latest,
     provider => yum,
     require => Package["zlib-devel"]
-  }
-
-  package { "fpm":
-    ensure => latest,
+  } ->
+  package { "cabin":
+    ensure => '0.7.1',
     provider => gem,
-    require => Package["ruby-devel"]
+  } ->
+  package { "fpm":
+    ensure => '1.3.3',
+    provider => gem,
   }
 
   exec { "bower":

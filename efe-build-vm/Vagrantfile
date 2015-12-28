@@ -14,15 +14,16 @@ SCRIPT
 
 
 Vagrant.configure($VAGRANTFILE_API_VERSION) do |config|
-  config.vm.hostname = "efe-build-vm"
+  config.vm.hostname = "ez-build-vm"
   config.vm.box = $BOX
   config.vm.box_url = $BOX_URL
   config.ssh.forward_agent = true
 
-  config.vm.synced_folder "~/.m2", "/home/vagrant/.m2"
+  config.vm.synced_folder "~/.ezbake-m2", "/home/vagrant/.m2"
   config.vm.synced_folder "~/.pip", "/home/vagrant/.pip"
   config.vm.synced_folder "~/.pip", "/root/.pip"
   config.vm.synced_folder "../.git", "/home/vagrant/.sync_git"
+  config.vm.synced_folder "~/code/ezbake-open/ezbake-dev-tools/efe-build-vm/ezbake-project", "/home/vagrant/ezbake-project"
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", "4096"]
