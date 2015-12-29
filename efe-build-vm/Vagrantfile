@@ -52,9 +52,10 @@ Vagrant.configure($VAGRANTFILE_API_VERSION) do |config|
     s.args = %q{/root/.ssh /root/.ssh/known_hosts "github.com"}
   end
 
-  config.vm.provision "shell", path: "provisioning/python_installation.sh"
-  config.vm.provision "shell", path: "provisioning/maven_installation.sh"
-  config.vm.provision "shell", path: "provisioning/thrift_installation.sh"
+  config.vm.provision :shell, :path => 'provisioning/python_installation.sh'
+  config.vm.provision :shell, :path => 'provisioning/maven_installation.sh'
+  config.vm.provision :shell, :path => 'provisioning/thrift_installation.sh'
+  config.vm.provision :shell, :path => 'provisioning/pyenv.sh'
 
   config.vm.provision "puppet" do |p|
     p.manifest_file = "post.pp"
