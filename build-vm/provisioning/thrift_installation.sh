@@ -14,21 +14,9 @@
 #   limitations under the License.
 
 
-PY_VERSION="2.7.6"
 THRIFT_VERSION="0.9.1"
 THRIFT_INSTALLED=$(thrift -version 2>/dev/null | grep -F "${THRIFT_VERSION}" | wc -l)
 CHECKSUM="d2e46148f6e800a9492dbd848c66ab6e"
-
-export PATH=/opt/python-$PY_VERSION/bin:${PATH}
-
-if [ -d rp_env_setup ];
-then
-    echo "reverse proxy environment setup directory already exists"
-else
-     mkdir rp_env_setup
-fi
-
-cd rp_env_setup
 
 if [ "${THRIFT_INSTALLED}" -ne 1 ]; then
     if [ -f thrift-${THRIFT_VERSION}.tar.gz ];
@@ -49,6 +37,7 @@ if [ "${THRIFT_INSTALLED}" -ne 1 ]; then
     cd thrift-${THRIFT_VERSION}
     patch -p1 < /vagrant/provisioning/thrift_0.9.1_patches_2201_667_1755_2045_2229_.patch
     ./configure --without-ruby --without-tests
+    make
     sudo make install
     cd lib/py
     sudo env PATH=$PATH pip install -U .

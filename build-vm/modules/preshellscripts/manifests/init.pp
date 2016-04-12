@@ -15,10 +15,11 @@
 class preshellscripts {
   $pkgs = [ "wget", "git", "rpm-build", "zlib-devel", "java-1.7.0-openjdk-devel",
             "vim-enhanced", "openssl-devel", "boost-devel", "python-devel",
-            "pcre-devel", "log4cxx-devel", "npm",
+            "pcre-devel", "log4cxx-devel", "npm", "readline-devel", "bzip2-devel",
             "libtool", "byacc", "flex", /* for thrift build */
             "nodejs-grunt", "nodejs-grunt-cli", /* for nodejs */
             "postgresql93-devel", /* for postgres visibility extention */
+            "mlocate", /* quick file system indexer & lookup tool */
           ]
   yumrepo { 'ezbake-open':
     name => 'ezbake-open',

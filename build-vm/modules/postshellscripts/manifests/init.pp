@@ -26,21 +26,13 @@ class postshellscripts {
   }
   create_resources(file_line, $system_exports, $system_export_defaults)
 
-  file { '/opt/python-2.7.6/bin/pip':
-    ensure => present,
-  } -> #and then:
   vcsrepo { '/opt/pyinstaller':
     ensure => latest,
     owner => vagrant,
     group => vagrant,
     provider => git,
     source => 'https://github.com/infochimps-forks/pyinstaller.git',
-    revision => 'master'
-  } ~> #and then notify:
-  exec { 'install custom pyinstaller':
-    cwd => '/opt/pyinstaller',
-    command => '/opt/python-2.7.6/bin/pip install .',
-    refreshonly => true,
+    revision => 'develop'
   }
 }
 

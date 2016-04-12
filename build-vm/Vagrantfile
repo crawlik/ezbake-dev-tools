@@ -23,7 +23,8 @@ Vagrant.configure($VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder "~/.pip", "/home/vagrant/.pip"
   config.vm.synced_folder "~/.pip", "/root/.pip"
   config.vm.synced_folder "../.git", "/home/vagrant/.sync_git"
-  config.vm.synced_folder "~/code/ezbake-open/ezbake-dev-tools/efe-build-vm/ezbake-project", "/home/vagrant/ezbake-project"
+  config.vm.synced_folder "~/code/ezbake-open/ezbake-dev-tools/efe-build-vm/ezbake-project",
+      "/home/vagrant/ezbake-project"
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", "4096"]
@@ -52,7 +53,7 @@ Vagrant.configure($VAGRANTFILE_API_VERSION) do |config|
     s.args = %q{/root/.ssh /root/.ssh/known_hosts "github.com"}
   end
 
-  config.vm.provision :shell, :path => 'provisioning/python_installation.sh'
+  #config.vm.provision :shell, :path => 'provisioning/python_installation.sh'
   config.vm.provision :shell, :path => 'provisioning/maven_installation.sh'
   config.vm.provision :shell, :path => 'provisioning/thrift_installation.sh'
   config.vm.provision :shell, :path => 'provisioning/pyenv.sh'
